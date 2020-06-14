@@ -14,18 +14,22 @@ export default {
   data() {
     return {
       age:30,
+      data:'',
     }
   },
   components: {
     HelloWorld
   },
   mounted() {
-    let url = "https://www.easy-mock.com/mock/5ee4fb0c3cfbe27ca221648d/example/proxy";
-    axios.get(url).then({
-      
+    let axiosUrl = "https://www.easy-mock.com/mock/5ee4fb0c3cfbe27ca221648d/example/mock"
+    let jsonpUrl = "/api/activity/servicetime";
+    axios.get(axiosUrl).then(function(res){
+      console.log("axios",res);
     })
-    jsonp(url,()=>{
-      
+    jsonp(jsonpUrl,(err,res)=>{
+      let result = res;
+      this.date = result;
+      console.log('jsonp',res);
     })
   },
 }
