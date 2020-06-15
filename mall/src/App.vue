@@ -6,17 +6,28 @@
 
 <script>
 import storage from './store/index'
+
 export default {
   name: 'App',
+  data() {
+    return {
+      age:30,
+      data:'',
+    }
+  },
   components: {
     
   },
   mounted() {
-    // storage.setItem("a",1);
+    storage.setItem("a",1);
+    storage.setItem("user",{});
     // storage.setItem("b",2,"user")
+    // storage.setItem("a",3,"user")
+    
     // storage.clear("a","user");
-    storage.clear("a");
+    // storage.clear("user");
     // storage.getStorage();
+
   },
 }
 </script>
