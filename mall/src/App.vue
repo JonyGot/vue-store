@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import storage from './store/index'
+  
 
 export default {
   name: 'App',
@@ -19,15 +19,14 @@ export default {
     
   },
   mounted() {
-    storage.setItem("a",1);
-    storage.setItem("user",{});
-    // storage.setItem("b",2,"user")
-    // storage.setItem("a",3,"user")
-    
-    // storage.clear("a","user");
-    // storage.clear("user");
-    // storage.getStorage();
-
+    //本地加载请求
+    // this.axios.get('/mock/user/login.json').then((res)=>{
+    //   this.res = res;
+    // });
+    //通过easy-mock接口请求
+    this.axios.get('/mock/user/login.json').then((res)=>{
+      this.res = res;
+    });
   },
 }
 </script>
