@@ -13,20 +13,26 @@ export default {
     return {
       age:30,
       data:'',
+      // res:{},
     }
   },
   components: {
     
   },
   mounted() {
-    //本地加载请求
+    //本地加载json请求的形式
     // this.axios.get('/mock/user/login.json').then((res)=>{
     //   this.res = res;
     // });
     //通过easy-mock接口请求
-    this.axios.get('/mock/user/login.json').then((res)=>{
+    // this.axios.get('/user/login').then((res)=>{
+    //   this.res = res;
+    // });
+    // 本地集成mockjs实现数据
+    this.axios.get('/user/login').then((res)=>{
+      console.log("ok",res);
       this.res = res;
-    });
+    })
   },
 }
 </script>
