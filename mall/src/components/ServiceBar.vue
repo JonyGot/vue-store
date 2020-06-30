@@ -1,6 +1,6 @@
 <template>
   <div class="service">
-    <div class="continer">
+    <div class="container">
       <ul>
         <li>
           <span class="icon-setting"></span>预约维修服务

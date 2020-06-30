@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <div class="nav-topbar">
-      <div class="continer">
+      <div class="container">
         <div class="topbar-meanu">
           <a href="javascript:;">小米商城</a>
           <!-- //"javascript:;"防止页面刷新 -->
@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="nav-header">
-      <div class="continer">
+      <div class="container">
         <div class="header-logo">
           <a href="/#/index"></a>
         </div>
@@ -179,7 +179,7 @@ export default {
     line-height: 39px;
     background-color: #333;
     color: #b0b0b0;
-    .continer {
+    .container {
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -205,7 +205,7 @@ export default {
     }
   }
   .nav-header {
-    .continer {
+    .container {
       position: relative;
       height: 112px;
       display: flex;
