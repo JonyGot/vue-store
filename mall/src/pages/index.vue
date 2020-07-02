@@ -10,7 +10,7 @@
                 <ul v-for="(item,index) in menuList" :key="index">
                   <li v-for="(sub,index) in item" :key="index">
                     <a :href="sub.id?'/#/product/'+sub.id : ''">
-                      <img :src="sub.id?sub.img : '/imgs/item-box-1.png'" alt />
+                      <img v-lazy="sub.id?sub.img : '/imgs/item-box-1.png'" alt />
                       {{sub.name?sub.name:'小米9'}}
                     </a>
                   </li>
@@ -50,7 +50,7 @@
         <swiper :options="swiperOption" :auto-update="true">
           <swiper-slide v-for="(item,index) in slideList" :key="index">
             <a :href="'/#/product/'+item.id">
-              <img :src="item.img" alt />
+              <img v-lazy="item.img" alt />
             </a>
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination"></div>
@@ -60,18 +60,18 @@
       </div>
       <div class="ads-box">
         <a :href="'/#/product/'+item.id" v-for="(item,index) in adsList" :key="index">
-          <img :src="item.img" alt />
+          <img v-lazy="item.img" alt />
         </a>
       </div>
       <div class="banner">
         <a>
-          <img src="/imgs/banner-1.png" alt />
+          <img v-lazy="'/imgs/banner-1.png'" alt />
         </a>
       </div>
     </div>
-    
-      <div class="product-box">
-        <div class="container">
+
+    <div class="product-box">
+      <div class="container">
         <h2>手机</h2>
         <div class="wrapper">
           <div class="banner-left">
@@ -84,12 +84,15 @@
               <div class="item" v-for="(item,index) in arr" :key="index">
                 <span :class="index%2==0?'new-pro':'kill-pro'">新品</span>
                 <div class="item-img">
-                  <img :src="item.mainImage.indexOf('http')!= -1?item.mainImage:item.imageHost+'/'+item.mainImage" alt/>
+                  <img
+                    v-lazy="item.mainImage.indexOf('http')!= -1?item.mainImage:item.imageHost+'/'+item.mainImage"
+                    alt
+                  />
                 </div>
                 <div class="item-info">
                   <h3>{{item.subtitle}}</h3>
                   <p>{{item.name}}</p>
-                  <p class="price">{{item.price}}</p>
+                  <p class="price" @click="addCart(item.id)">{{item.price}}</p>
                 </div>
               </div>
             </div>
@@ -98,11 +101,17 @@
       </div>
     </div>
     <ServiceBar></ServiceBar>
+      <modal title="提示" sureText="查看购物车" btnType="1" modalType="middle" :showMedal="showModal" @submit="goToCart" @cancel="closeModal">
+        <template v-slot:body>
+          <p>添加购物车成功</p>
+        </template>
+      </modal>
   </div>
 </template>
 
 <script>
 import ServiceBar from "./../components/ServiceBar.vue";
+import modal from "./../components/Modal.vue";
 import { Swiper, SwiperSlide } from "vue-awesome-swiper";
 import "swiper/css/swiper.css";
 export default {
@@ -110,7 +119,8 @@ export default {
   components: {
     ServiceBar,
     Swiper,
-    SwiperSlide
+    SwiperSlide,
+    modal
   },
   data() {
     return {
@@ -202,25 +212,46 @@ export default {
           img: "/imgs/ads/ads-4.jpg"
         }
       ],
-      phoneList: [
-      ]
+      phoneList: [],
+      showModal: false,
     };
   },
   mounted() {
     this.init();
   },
-methods: {
-  init(){
-    this.axios.get('/products',{
-      params:{
-        categoryID:100012,
-        pageSize:12
-      }
-    }).then((res)=>{
-      this.phoneList = [res.list.slice(1,5),res.list.slice(5,9)]
-    })
+  methods: {
+    init() {
+      this.axios
+        .get("/products", {
+          params: {
+            categoryID: 100012,
+            pageSize: 12
+          }
+        })
+        .then(res => {
+          this.phoneList = [res.list.slice(2, 6), res.list.slice(6, 10)];
+        });
+    },
+    addCart(){
+      this.showModal = true
+      // return 0;
+      // this.axios.post('/carts',{
+        // productId:id,
+      //   selected:true
+      // }).then(()=>{
+
+      // }).catch(()=>{
+      //   this.showModal = true;
+      // })
+    },
+    goToCart(){
+      this.$router.push('/cart')
+    },
+    closeModal(){
+      this.showModal = false
+    }
+
   }
-},
 };
 </script>
 
@@ -377,16 +408,20 @@ methods: {
               height: 24px;
               line-height: 24px;
               color: #fff;
-              &.new-pro{
-                background-color: #7ECF68;
+              &.new-pro {
+                background-color: #7ecf68;
               }
-              &.kill-pro{
-                background-color: #E82626;
+              &.kill-pro {
+                background-color: #e82626;
               }
             }
             .item-img {
+              // text-align: center;
+              width: 100%;
               img {
                 height: 195px;
+                width: 100%;
+                margin: 0px auto;
               }
             }
             .item-info {

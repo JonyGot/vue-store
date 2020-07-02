@@ -32,7 +32,7 @@
                   <a :href="'/#/product'+item.id" target="_blank">
                     <div class="pro-img">
                       <img
-                        :src="item.mainImage"
+                        v-lazy=item.mainImage
                         :alt="item.subtitle"
                       />
                     </div>
@@ -126,7 +126,7 @@ export default {
   name: "nav-header",
   data() {
     return {
-      username: "Jony",
+      username: "",
       phoneList: []
     };
   },
@@ -194,6 +194,7 @@ export default {
       background-color: #ff6600;
       color: #fff;
       text-align: center;
+      margin-right: 0;
       .icon-cart {
         display: inline-block;
         width: 16px;

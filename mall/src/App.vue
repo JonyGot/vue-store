@@ -29,10 +29,24 @@ export default {
     //   this.res = res;
     // });
     // 本地集成mockjs实现数据
-    this.axios.get('/user/login').then((res)=>{
-      console.log("ok",res);
-      this.res = res;
-    })
+    // this.axios.get('/user/login').then((res)=>{
+    //   console.log("ok",res);
+    //   this.res = res;
+    // })
+    this.getUser();
+    this.getCartCount();
+  },
+  methods: {
+    getUser(){
+      this.axios.get('/user').then(()=>{
+        //todo保存到用户接口
+      })
+    },
+    getCartCount(){
+      this.axios.get('/carts/products/sum').then(()=>{
+        //保存到vuex
+      })
+    }
   },
 }
 </script>
@@ -40,4 +54,5 @@ export default {
 <style lang="scss">
 // @import url('./assets/scss/config.scss');
 @import url('./assets/scss/reset.scss');
+@import url('./assets/scss/button.scss');
 </style>
