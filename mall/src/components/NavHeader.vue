@@ -13,7 +13,7 @@
           <a href="javascript:;" @click="login">{{username?username:'登录'}}</a>
           <a href="javascript:;">我的订单</a>
           <a href="javascript:;" class="my-cart" @click="goToCart">
-            <span class="icon-cart"></span>购物车
+            <span class="icon-cart"></span>购物车( {{cartCount}} )
           </a>
         </div>
       </div>
@@ -31,16 +31,12 @@
                 <li class="product" v-for="(item,index) in phoneList" :key="index">
                   <a :href="'/#/product'+item.id" target="_blank">
                     <div class="pro-img">
-                      <img
-                        v-lazy=item.mainImage
-                        :alt="item.subtitle"
-                      />
+                      <img v-lazy="item.mainImage" :alt="item.subtitle" />
                     </div>
                     <div class="pro-name">{{item.name}}</div>
                     <div class="pro-price">{{item.price | currency}}</div>
                   </a>
                 </li>
-                
               </ul>
             </div>
           </div>
@@ -112,7 +108,7 @@
         </div>
         <div class="header-search">
           <div class="wrapper">
-            <input type="text" name="keyword" />
+            <input type="text" name="keyword" placeholder="小米10   智能家居"/>
             <a href="javascript:;"></a>
           </div>
         </div>
@@ -126,19 +122,26 @@ export default {
   name: "nav-header",
   data() {
     return {
-      username: "",
       phoneList: []
     };
   },
-  filters:{
-    currency(val){
-      if(!val)return '0.00';
-      return '¥' + val.toFixed(2) + '元'
+  computed: {
+    username(){
+      return this.$store.state.username
+    },
+    cartCount(){
+      return this.$store.state.cartCount
+    }
+  },
+  filters: {
+    currency(val) {
+      if (!val) return "0.00";
+      return "¥" + val.toFixed(2) + "元";
     }
   },
   mounted() {
     this.getProductList();
-    console.log("phoneList",this.phoneList);
+    console.log("phoneList123", this.phoneList);
   },
   methods: {
     getProductList() {
@@ -147,24 +150,25 @@ export default {
           //get必须以这种方式传惨
           params: {
             categoryId: "100012",
-            pageSize:8
+            pageSize: 8
           }
         })
-        .then((res) => {
+        .then(res => {
           {
             if (res.list.length > 6) {
-              this.phoneList = res.list.slice(0,6);
-            }else{
-              this.phoneList = res.list
+              console.log("phonrest", res);
+              this.phoneList = res.list.slice(0, 6);
+            } else {
+              this.phoneList = res.list;
             }
           }
         });
     },
-    goToCart(){
-      this.$router.push('/cart');
+    goToCart() {
+      this.$router.push("/cart");
     },
-    login(){
-      this.$router.push('/login');
+    login() {
+      this.$router.push("/login");
     }
   }
 };
