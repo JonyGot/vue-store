@@ -233,11 +233,11 @@ export default {
         .get("/products", {
           params: {
             categoryID: 100012,
-            pageSize: 12
+            pageSize: 14
           }
         })
         .then((res) => {
-          this.phoneList = [res.list.slice(2, 6), res.list.slice(6, 10)];
+          this.phoneList = [res.list.slice(4, 8), res.list.slice(10, 14)];
         });
     },
     addCart(id) {
@@ -262,7 +262,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import url("../assets/scss/base.scss");
+@import "../assets/scss/base.scss";
 
 .index {
   .swiper-box {

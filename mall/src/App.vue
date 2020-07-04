@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style lang="scss">
-// @import url('./assets/scss/config.scss');
-@import url("./assets/scss/reset.scss");
-@import url("./assets/scss/button.scss");
+@import './assets/scss/config.scss';
+@import "./assets/scss/reset.scss";
+@import "./assets/scss/button.scss";
 </style>

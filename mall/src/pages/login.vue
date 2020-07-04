@@ -18,7 +18,7 @@
           <div class="form">
             <form action>
               <input type="text" placeholder="账号" v-model="username"/>
-              <input type="text" placeholder="请输入密码"  v-model="password"/>
+              <input type="password" placeholder="请输入密码"  v-model="password"/>
             </form>
             <a href="javascript:;" class="btn btn-large" @click="login">登录</a>
           </div>
