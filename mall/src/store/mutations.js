@@ -4,7 +4,7 @@ export default {
         state.username = username;
     },
     saveCartCount(state,count){
-        state.cartCount = count+2
+        state.cartCount = count
 
     }
 }

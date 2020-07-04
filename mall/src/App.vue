@@ -42,7 +42,7 @@ export default {
       this.axios.get("/carts/products/sum").then((res) => {
         //保存到vuex
         console.log("res123",res)
-        this.$store.dispatch("saveCartCount", res);
+        this.$store.commit("saveCartCount", res);
 
       });
     }

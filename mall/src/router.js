@@ -31,7 +31,7 @@ export default new Router({
             name: 'product',
             component: Prodect,
         }, {
-            path: '/detail',
+            path: '/detail/:id',
             name: 'detail',
             component: Detail,
         }]
@@ -47,7 +47,7 @@ export default new Router({
         path: '/order',
         name: 'oeder',
         component: Order,
-        // redirect: '/list',
+        redirect: 'order/list',
         children: [{
             path: 'list',
             name: 'order-list',

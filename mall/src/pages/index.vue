@@ -101,11 +101,19 @@
       </div>
     </div>
     <ServiceBar></ServiceBar>
-      <modal title="提示" sureText="查看购物车" btnType="1" modalType="middle" :showMedal="showModal" @submit="goToCart" @cancel="closeModal">
-        <template v-slot:body>
-          <p>添加购物车成功</p>
-        </template>
-      </modal>
+    <modal
+      title="提示"
+      sureText="查看购物车"
+      btnType="1"
+      modalType="middle"
+      :showMedal="showModal"
+      @submit="goToCart"
+      @cancel="closeModal"
+    >
+      <template v-slot:body>
+        <p>添加购物车成功</p>
+      </template>
+    </modal>
   </div>
 </template>
 
@@ -213,7 +221,7 @@ export default {
         }
       ],
       phoneList: [],
-      showModal: false,
+      showModal: false
     };
   },
   mounted() {
@@ -228,29 +236,27 @@ export default {
             pageSize: 12
           }
         })
-        .then(res => {
+        .then((res) => {
           this.phoneList = [res.list.slice(2, 6), res.list.slice(6, 10)];
         });
     },
-    addCart(){
-      this.showModal = true
-      // return 0;
-      // this.axios.post('/carts',{
-        // productId:id,
-      //   selected:true
-      // }).then(()=>{
-
-      // }).catch(()=>{
-      //   this.showModal = true;
-      // })
+    addCart(id) {
+      this.axios
+        .post("/carts", {
+          productId: id,
+          selected: true
+        })
+        .then(res => {
+          this.showModal = true;
+          this.$store.commit('saveCartCount', res.cartTotalQuantity)
+        });
     },
-    goToCart(){
-      this.$router.push('/cart')
+    goToCart() {
+      this.$router.push("/cart");
     },
-    closeModal(){
-      this.showModal = false
+    closeModal() {
+      this.showModal = false;
     }
-
   }
 };
 </script>
