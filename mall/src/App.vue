@@ -29,6 +29,10 @@ export default {
     //   console.log("ok",res);
     //   this.res = res;
     // })
+    if(this.$cookie.get('userId')){
+      this.getUser();
+      this.getCartCount();
+    }
     this.getUser();
     this.getCartCount();
   },

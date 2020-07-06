@@ -246,9 +246,12 @@ export default {
           productId: id,
           selected: true
         })
-        .then(res => {
+        .then((res) => {
           this.showModal = true;
           this.$store.commit('saveCartCount', res.cartTotalQuantity)
+        }).catch(()=>{
+             this.$message.warning("请先点击右上角登陆");
+
         });
     },
     goToCart() {

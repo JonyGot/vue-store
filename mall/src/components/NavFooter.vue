@@ -1,14 +1,15 @@
 <template>
   <div class="footer">
     <div class="footer-logo">
-      <img src="/imgs/logo-footer.png" alt />
-      <p>小米商城</p>
+      <!-- <img src="/imgs/logo-footer.png" alt /> -->
+      <p>vue商城</p>
     </div>
     <div class="footer-link">
       <a href="javascript:;">Jony的博客</a>
       <a href="javascript:;">Jony的github</a>
       <a href="javascript:;">Jony的微博</a>
       <a href="javascript:;">Jony的QQ</a>
+      <a href="javascript:;" @click="goToViishow">viishow的小伙伴们</a>
     </div>
     <div class="copyRight">Copyright ©2019 <span>mi.futurefe.com</span> All Rights Reserved.</div>
   </div>
@@ -16,7 +17,12 @@
 
 <script>
 export default {
-  name: "nav-footer"
+  name: "nav-footer",
+  methods: {
+    goToViishow(){
+      this.$router.push('/order/viishow')
+    }
+  },
 };
 </script>
 
@@ -49,6 +55,9 @@ export default {
       &:after {
         content: "|";
         margin-left: 10px;
+      }
+      &:last-child:after{
+        display: none;
       }
     }
     

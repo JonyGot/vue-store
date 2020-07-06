@@ -51,6 +51,8 @@
 </template>
 
 <script>
+import {Message} from "element-ui"
+
 export default {
   data() {
     return {
@@ -67,22 +69,30 @@ export default {
         username,
         password
       }).then((res)=>{
-        this.$cookie.set('userId',res.id,{expires:'1M'});
+        this.$cookie.set('userId',res.id,{expires:'Session'});
         // 保存用户信息
-        this.$store.dispatch('saveUserName',res.username);
-        this.$router.push('/index');
+        this.$store.commit('saveUserName',res.username);
+        this.$router.push({
+          name:"index",
+          params:{
+            from:"login",
+          }
+        });
       })
     },
     register(){
       let {username,password} = this;
       if(!username){
-        alert('请直接在登录框内输入信息，然后点击该按钮即可注册')
+        // alert('请直接在登录框内输入信息，然后点击该按钮即可注册')
+        Message.info('请直接在登录框内输入信息，然后点击该按钮即可注册')
         return 0;
       }
       this.axios.post('/user/register',{
         username,
         password
       }).then(()=>{
+        Message.success('注册成功')
+
       })
     }
   },

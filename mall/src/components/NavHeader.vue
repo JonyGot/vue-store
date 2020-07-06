@@ -12,8 +12,10 @@
         <div class="topbar-user">
           <a href="javascript:;" @click="login">{{username?username:'登录'}}</a>
           <a href="javascript:;">我的订单</a>
+          <a href="javascript:;" @click="logout" v-if="username">退出</a>
           <a href="javascript:;" class="my-cart" @click="goToCart">
-            <span class="icon-cart"></span>购物车( {{cartCount}} )
+            <span class="icon-cart"></span>
+            购物车( {{cartCount}} )
           </a>
         </div>
       </div>
@@ -108,7 +110,7 @@
         </div>
         <div class="header-search">
           <div class="wrapper">
-            <input type="text" name="keyword" placeholder="小米10   智能家居"/>
+            <input type="text" name="keyword" placeholder="小米10   智能家居" />
             <a href="javascript:;"></a>
           </div>
         </div>
@@ -126,11 +128,11 @@ export default {
     };
   },
   computed: {
-    username(){
-      return this.$store.state.username
+    username() {
+      return this.$store.state.username;
     },
-    cartCount(){
-      return this.$store.state.cartCount
+    cartCount() {
+      return this.$store.state.cartCount;
     }
   },
   filters: {
@@ -141,6 +143,9 @@ export default {
   },
   mounted() {
     this.getProductList();
+    if (this.$route.params && this.$route.params.from == "login") {
+      this.getCartCount();
+    }
     console.log("phoneList123", this.phoneList);
   },
   methods: {
@@ -168,15 +173,47 @@ export default {
       this.$router.push("/cart");
     },
     login() {
-      this.$router.push("/login");
+      if (!this.username) {
+        this.$router.push("/login");
+      } else {
+        this.$message.warning("请先退出再重新登录");
+      }
+    },
+    logout() {
+      this.$confirm("退出现有登录部分页面将无法访问, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      })
+        .then(() => {
+          this.axios.post("user/logout").then(() => {
+            this.$message.success("退出成功");
+            this.$cookie.set("userId", "", { expires: "-1" });
+            this.$store.commit("saveUserName", "");
+            this.$store.commit("saveCartCount", 0);
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消"
+          });
+        });
+    },
+    getCartCount() {
+      this.axios.get("/carts/products/sum").then(res => {
+        //保存到vuex
+        console.log("res123", res);
+        this.$store.commit("saveCartCount", res);
+      });
     }
   }
 };
 </script>
 
 <style lang="scss">
-@import url("../assets/scss/base.scss");
-// @import url("../assets/scss/config.scss");
+@import "../assets/scss/base.scss";
+@import "../assets/scss/config.scss";
 .header {
   .nav-topbar {
     height: 39px;
@@ -195,7 +232,7 @@ export default {
     }
     .my-cart {
       width: 110px;
-      background-color: #ff6600;
+      background-color: $colorA;
       color: #fff;
       text-align: center;
       margin-right: 0;
@@ -220,7 +257,7 @@ export default {
         display: inline-block;
         width: 55px;
         height: 55px;
-        background-color: #ff6600;
+        background-color: $colorA;
         a {
           display: inline-block;
           width: 110px;
@@ -237,6 +274,7 @@ export default {
           &:after {
             content: "  ";
             width: 55px;
+            opacity: 0.5;
             height: 55px;
             display: inline-block;
             background: url("/imgs/mi-home.png") no-repeat center;
@@ -263,7 +301,7 @@ export default {
             cursor: pointer;
           }
           &:hover {
-            color: #ff6600;
+            color: $colorA;
             .children {
               height: 220px;
               opacity: 1;
@@ -308,7 +346,7 @@ export default {
                 color: #333;
               }
               .pro-price {
-                color: #ff6600;
+                color: $colorA;
               }
               &:before {
                 content: " ";

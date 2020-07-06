@@ -11,6 +11,7 @@ import OrderList from './pages/orderList'
 import OrderPay from './pages/orderPay'
 import AliPay from './pages/alipay'
 import Login from './pages/login'
+import Viishow from './pages/viishow'
 
 //通过vue的方式加载插件
 Vue.use(Router)
@@ -64,6 +65,10 @@ export default new Router({
             path: 'alipay',
             name: 'ali-pay',
             component: AliPay
+        }, {
+            path: 'viishow',
+            name: 'viishwo',
+            component: Viishow
         }]
     }]
 })
