@@ -10,6 +10,11 @@ module.exports = {
                     '/api': '',
                 }
             }
-        }
+        },
+    },
+    build: {
+        assetsSubDirectory: 'static',
+        assetsPublicPath: './',
+        productionSourceMap: true,
     }
 }
