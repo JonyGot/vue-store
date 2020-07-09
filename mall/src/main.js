@@ -6,6 +6,8 @@ import router from './router'
 import VueLazyLoad from 'vue-lazyload'
 import VueCookie from 'vue-cookie'
 import store from './store'
+import message from 'ant-design-vue'
+import 'ant-design-vue/dist/antd.css';
 // import env from './env'
 
 //mock开关
@@ -37,9 +39,10 @@ axios.interceptors.response.use(function (response) {
     alert(res.msg);
   }
 })
-
+// Vue.prototype.$message = message;
 Vue.use(VueAxios, axios);
 Vue.use(VueCookie);
+Vue.use(message);
 Vue.config.productionTip = false
 Vue.use(VueLazyLoad,{
   loading:'/imgs/loading-svg/loading-spinning-bubbles.svg'

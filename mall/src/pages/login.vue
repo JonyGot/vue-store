@@ -76,7 +76,8 @@ export default {
     register(){
       let {username,password} = this;
       if(!username){
-        alert('请直接在登录框内输入信息，然后点击该按钮即可注册')
+        // alert('请直接在登录框内输入信息，然后点击该按钮即可注册')
+        this.$message.info('请直接在登录框内输入信息，然后点击该按钮即可注册')
         return 0;
       }
       this.axios.post('/user/register',{
