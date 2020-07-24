@@ -1,3 +1,11 @@
+/*
+ * @Author: your name
+ * @Date: 2020-07-09 15:05:58
+ * @LastEditTime: 2020-07-21 10:36:07
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \Vue\vue-store\mall\src\main.js
+ */ 
 import Vue from 'vue'
 import App from './App.vue'
 import axios from 'axios'
@@ -45,7 +53,7 @@ Vue.use(VueCookie);
 Vue.use(message);
 Vue.config.productionTip = false
 Vue.use(VueLazyLoad,{
-  loading:'/imgs/loading-svg/loading-spinning-bubbles.svg'
+  loading:'/imgs/loading-svg/loading-spin.svg'
 })
 new Vue({
   router,
